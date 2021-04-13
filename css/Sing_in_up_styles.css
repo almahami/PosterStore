@@ -1,0 +1,11 @@
+.im-centered {
+    margin: auto;
+    max-width: 600px;
+}
+form {
+    width: 500px;
+    padding: 30px;
+
+    /*background: rgb(252, 247, 247);*/
+    border-radius: 15px;
+}

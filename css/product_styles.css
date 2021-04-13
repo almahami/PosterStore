@@ -1,0 +1,36 @@
+
+.Product_container {
+	position: relative;	
+    overflow: hidden;
+    width: auto;
+    max-height:auto ;
+    width: 600px;
+    max-height:800px ;
+    
+}
+.Product_container:hover .Product_cover {
+	transform: translateX(-100%);
+}
+
+.Product_cover {
+	position: absolute;
+	z-index: 2;
+    text-align: center;
+    transition: all 0.5s;
+	width: 1;
+	justify-content: center;
+   
+}
+
+
+.box {
+    border-style: ridge;
+
+}
+
+.box img {
+  
+    width: 350px;
+    height: 500px;
+    padding: 1em;
+}
