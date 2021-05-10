@@ -117,7 +117,7 @@ if($_SESSION['login'] !=111){
                         //echo $orderIDFK;
                     }
                  
-                    $order_products = "SELECT `userId`, `productId`, `amount`,item FROM cart,products WHERE userId ='64' AND productId=products.id";
+                    $order_products = "SELECT `userId`, `productId`, `amount`,item FROM cart,products WHERE userId ='$userid' AND productId=products.id";
                    // echo $order_products .  '<br>' ;
                     $result_order_products = $fpConnection->query($order_products);
                     $productIDFK=0;
