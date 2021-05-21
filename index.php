@@ -71,13 +71,13 @@
     <nav class="navbar navbar-light" style="background-color: #e3f2fd; margin-bottom: 0%;">
         <a class="navbar-brand" href="index.php" style="margin-left: 300px;"> Poster Store</a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-3">
+            <ul class="navbar-nav mr-6">
                 <li class="nav-item" style=" margin-left: 500px;">
                     <h2 style="text-align: center;"> Wilkomen auf Unsere Homepage</h2>
                 </li>
             </ul>
-            
         </div>
+            
     </nav>
 
     <!--Content-->

@@ -108,10 +108,10 @@ if($_SESSION['login'] !=111){
                 
                 $orderIDFK='';
                 if($result_insert_into_order){
-                    
                     $orderIDFK_auslesen = "SElECT OrderID FROM order_ WHERE userIdFK ='$userid' ";
                     $orderIDFK_auslesen_result = $fpConnection->query($orderIDFK_auslesen);
                     if($orderIDFK_auslesen_result){
+<<<<<<< HEAD
                     while($row = $orderIDFK_auslesen_result->fetch_array()){
                         $orderIDFK=$row['OrderID'];
                         //echo $orderIDFK;
@@ -119,20 +119,26 @@ if($_SESSION['login'] !=111){
                  
                     $order_products = "SELECT `userId`, `productId`, `amount`,item FROM cart,products WHERE userId ='$userid' AND productId=products.id";
                    // echo $order_products .  '<br>' ;
+=======
+                        while($row = $orderIDFK_auslesen_result->fetch_array()){
+                            $orderIDFK=$row['OrderID'];
+                            //echo $orderIDFK;
+                        }
+                    $order_products = "SELECT `userId`, `productId`, `amount`,item FROM cart,products WHERE userId ='$userid' AND productId=products.id";
+                    //echo $order_products .  '<br>' ;
+>>>>>>> cb865ff (My message)
                     $result_order_products = $fpConnection->query($order_products);
                     $productIDFK=0;
                     if ($result_order_products->num_rows > 0){
-
                         while($row = $result_order_products->fetch_array()){
-
+                           
                             $item=$row['item'];
                             $productIDFK = $row['productId'];
                             $amount = $row['amount'];
                             $update_item = $row['item'] - $row['amount'];
-                        
                             //$update_item = $item - $amount;
                             $insert_into_order_products = "INSERT INTO `order_products`(`id`, `orderIDFK`, `productIDFK`, `amount`) VALUES('','$orderIDFK', '$productIDFK','$amount')";
-                            //echo $insert_into_order_products.  '<br>' ;
+                            echo $insert_into_order_products.  '<br>' ;
                             $result_insert_into_order_products= $fpConnection->query($insert_into_order_products);
                             if($result_insert_into_order){
                                 $query_update_aviable_item="update products SET item= '$update_item' WHERE id='$productIDFK'";

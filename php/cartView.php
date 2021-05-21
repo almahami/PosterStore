@@ -131,17 +131,22 @@
                 // funktion , um den gesamten prise +  lieferkosten zu aktulisiern
                 function updatetotal(){
                 var oldTotal = <?php echo $total;?>;
-                var newTotal=0;
+                var newTotal=0.0;
                 var deliveryGruppe =document.Delivery.Delivery_radios;
                
                     if(deliveryGruppe[0].checked){
-                        newTotal = oldTotal + parseInt(deliveryGruppe[0].value);
+                        newTotal = oldTotal + parseFloat(deliveryGruppe[0].value);
                         document.getElementById('total').innerHTML = newTotal  + "&euro;";
                         return true;
                     }
                     else if(deliveryGruppe[1].checked){
-                        newTotal = oldTotal + parseInt(deliveryGruppe[1].value);
+                        newTotal = oldTotal + parseFloat(deliveryGruppe[1].value);
                         document.getElementById('total').innerHTML = newTotal + "&euro;";
+                        return true;
+                    }
+                    else if(deliveryGruppe[2].checked){
+                        newTotal = oldTotal + parseFloat(deliveryGruppe[2].value);
+                        document.getElementById('total').innerHTML = newTotal.toFixed(2); + "&euro;";
                         return true;
                     }
                     else{
@@ -161,14 +166,21 @@
                     <div class="col-md-4">
                         <div class="radio">
                             <label for="radios-0">
-                                <input type="radio" name="Delivery_radios" id="Delivery_radios" value="0"  onclick="updatetotal()">
-                                Normal
+                                <input type="radio" name="Delivery_radios" id="Delivery_radios" value="5.00"  onclick="updatetotal()">
+                                DHL(+5 &euro;)
                             </label>
                         </div>
                         <div class="radio">
                             <label for="radios-1">
-                                <input type="radio" name="Delivery_radios" id="Delivery_radios" value="4"  onclick="updatetotal()">
-                                Express (+4 &euro;)
+                                <input type="radio" name="Delivery_radios" id="Delivery_radios" value="5.00"  onclick="updatetotal()">
+                                DPD (+5 &euro;)
+
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label for="radios-2">
+                                <input type="radio" name="Delivery_radios" id="Delivery_radios" value="15.00"  onclick="updatetotal()">
+                                DHL EXPRESS (+15 &euro;)
 
                             </label>
                         </div>

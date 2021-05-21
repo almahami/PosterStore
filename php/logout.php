@@ -52,22 +52,23 @@
         <meta name="creator" content="MOHAMMAD AL MAHAMID">
         <meta name="creator" content="Basel Kahrof">
         <meta name="description" content="Logout page">
+        <meta http-equiv="refresh" content="4; url=../index.php">      
 
          <!-- jquery -->
-    <script src="../javaScript/jquery-2.1.4.min.js"></script>
+         <script src="../javaScript/jquery-2.1.4.min.js"></script>
 
-    <!-- Bootstrap -->
-    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <script src="../bootstrap/js/bootstrap.min.js"></script>
-    <!-- Font awesome http://fortawesome.github.io/Font-Awesome/-->
-    <link href="fontawesome/css/font-awesome.css" rel="stylesheet">
-    
-    <!--nav Stylesheet-->
-    <link rel="stylesheet" href="../css/nav_styles.css">
-    <!--Logout stylesheet-->
-    <link rel="stylesheet" href="../css/logout.css">
+        <!-- Bootstrap -->
+        <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <script src="../bootstrap/js/bootstrap.min.js"></script>
+        <!-- Font awesome http://fortawesome.github.io/Font-Awesome/-->
+        <link href="fontawesome/css/font-awesome.css" rel="stylesheet">
+        
+        <!--nav Stylesheet-->
+        <link rel="stylesheet" href="../css/nav_styles.css">
+        <!--Logout stylesheet-->
+        <link rel="stylesheet" href="../css/logout.css">
 
-</head>
+    </head>
    
     <body>
          <!--Top navigation-->

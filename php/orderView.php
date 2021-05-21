@@ -92,7 +92,7 @@
                         </tr>
                     </thead>
                     <?php 
-                    $order = "SELECT products.`id`, `orderIDFK`, `productIDFK`, `amount`, name,price,image FROM `order_products`, products WHERE  OrderIDFK = '$orderid' AND products.id =productIDFK ";
+                    $order = "SELECT products.`id`, `orderIDFK`, `productIDFK`, `amount`, name,price,image FROM `order_products`, `products` WHERE  OrderIDFK = '$orderid' AND products.id =productIDFK";
                     //echo $order;
                     $order_result = $fpConnection->query($order);
                     while($product =  $order_result->fetch_array()):
