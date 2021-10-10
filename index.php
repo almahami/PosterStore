@@ -1,4 +1,4 @@
-<?php require_once 'db/login.php'; ?>
+<?php require_once 'db/login.php';?>
 
 <!DOCTYPE html>
 <html lang="de">
@@ -50,6 +50,7 @@
                 alert("Bitte geben Sie ein password ein! ")
                 return false;
             }
+            sha512Pwd();
 
         }
         function screen_size(){
@@ -71,11 +72,7 @@
     <nav class="navbar navbar-light" style="background-color: #e3f2fd; margin-bottom: 0%;">
         <a class="navbar-brand" href="index.php" style="margin-left: 300px;"> Poster Store</a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-6">
-                <li class="nav-item" style=" margin-left: 500px;">
-                    <h2 style="text-align: center;"> Wilkomen auf Unsere Homepage</h2>
-                </li>
-            </ul>
+           
         </div>
             
     </nav>
@@ -85,10 +82,10 @@
 
         <div class="row">
             <center>
-                <h4>Bitte Login Sie sich ein <br> falls sie noch kein Konto haben, bitte erstellen Sie Ein Konto </h4>
+                <h4><a href='php/home.php'> zum Artikelübersicht </a></h4>
             </center>
             <div class="im-centered">
-                <a href="index.php">
+                <a href="php/home.php">
                     <img src="images/art.png" class="img-responsive">
                 </a>
             </div>
@@ -149,11 +146,14 @@
                                     </div>
                                     <div style="margin-top:10px" class="form-group">
                                         <div class="col-sm-12 controls">
-                                            <button type="submit" class="btn btn-primary" name="login" onclick="sha512Pwd(this); screen_size();">login</button>
+                                            <button type="submit" class="btn btn-primary" name="login" onclick="screen_size();">login</button>
                                         </div>
                                     </div>
-                                    <div class="link login-link text-center label_dark">Don't have an account?
+                                    <div class="link login-link text-center label_dark">Haben Sie noch Kein Konto?
                                         <a href="php/singUp_formular.php">Signup</a>
+                                    </div>
+                                    <div class="link login-link text-center label_dark">
+                                        <a href="php/forgotPassword.php">passwort vergessen</a>
                                     </div>
                                 </div>
                         </form>
@@ -168,7 +168,7 @@
             <hr>
 
             <!--footer-->
-           <?php  include_once"php/setUp/footer.php"; ?>
+           <?php  include_once"php/fregment/footer.php"; ?>
             <script>
                 function sha512Pwd(obj) {
                     var pwdObj = document.getElementById('password');

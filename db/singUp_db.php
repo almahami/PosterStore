@@ -2,7 +2,7 @@
 
     session_start();
     error_reporting();
-   // var_dump($_POST);
+//    var_dump($_POST);
 
     $first_name="";
     $last_name="";
@@ -28,9 +28,6 @@
         if(isset($_POST['password'])){
             $password_hash=$_POST['password'];
         }
-
-        try{
-
             $fpConnection =mysqli_connect("127.0.0.1", "root", "", "poster_store");         // DB connection 
             if(! $fpConnection){    	                                                    // Error  
                 echo "Fehler: Verbindung kann nich gestellt werden"- PHP_EQL;
@@ -54,8 +51,8 @@
                 $singUpSucess =true; 
                                                                                         // if registierung erfolgreich war bestätigungscode senden 
              if($singUpSucess){                                                       // vertfication code senden                                     
-                
-                  require_once 'sent_verfication_code.php';                         //php script, um eine bestätigungscode zu senden 
+                 
+                  require ('sent_verfication_code.php');                         //php script, um eine bestätigungscode zu senden 
                 }
                     $_SESSION['firstname']=$first_name;
                     $_SESSION['lastname']=$last_name;
@@ -66,21 +63,13 @@
                                 
                     //$password_hash=hash("sha512",$password);                                             //password_hash with php     
                     $insert = "INSERT INTO `user` (id, firstname,lastname, email,password,verification_code ,status,online) VALUES('','$first_name', '$last_name','$email','$password_hash','$code',false,false);"; // füge neue Daten satz 
-                    echo $insert;
+                    //echo $insert;
                     $result =$fpConnection->query($insert);
-                    echo "Neuer Kunde ist da";
+                    //echo "Neuer Kunde ist da";
+                    header("Location: verification.php");
+                }   
+      mysqli_close($fpConnection);
 
-                   header("Location: verification.php");
-                
-                }
-
-        
-            // db schliessen
-            mysqli_close($fpConnection);
-
-        }
-        catch (Exeption $e){
-            echo "Fehler bei der Verbindung ". $e;
-        }
+      
     }
 ?>

@@ -1,10 +1,22 @@
 <?php 
     session_start(); 
-    if($_SESSION['login'] !=111){
-        header("Location: ../index.php");
-    }
-
+    if($_SESSION['login'] !=111){ header("Location: ../index.php");}
+ 
     $userid = $_SESSION['uid'];
+     //Sichere, dass user keine leeren Bestellungsseite angezeigt wurde
+     try{
+        $fpConnection =mysqli_connect("127.0.0.1", "root", "", "poster_store");         // DB connection 
+        if(! $fpConnection){    	                                                    // Error  
+            echo "Fehler: Verbindung kann nich gestellt werden"- PHP_EQL;
+            echo "Debug Fehlernummer " . mysqli_connect_errno(). PHP_EQL;
+            echo "Debugb Fehlernummer ". mysqli_connect.eroor(). PHP_EQL;
+            exit;    
+        }
+       
+        $isOrderEmpty="SELECT * FROM order_ WHERE userIdFK='$userid'";
+
+        $result= $fpConnection->query($isOrderEmpty);
+        if($result->num_rows >0){
 
     ?>
 <!DOCTYPE html>
@@ -41,7 +53,7 @@
 
 <body>
 
-    <?php  include 'setUp/navbar.php' ?>
+    <?php  include 'fregment/navbar.php' ?>
 
     <?php 
    
@@ -160,9 +172,24 @@
     }
     ?>
 
-
+<?php include 'fregment/footer.php'; ?>
 </body>
-
-<?php include 'setUp/footer.php'; ?>
-
 </html>
+
+
+<!-- Ende der try Block, dient dazu, dass user keine Leeren Bestellung gibt-->
+<?php
+    }
+   else {
+      
+        $_SESSION["emptyOrder"]="Sie haben noch keine Bestellungen vorgegeben!";
+        header("Location: home.php");
+    }
+//try close
+    }
+    catch(Exception $e){
+        echo "Fehler bi db verbindung". $e;
+    }
+
+
+?>

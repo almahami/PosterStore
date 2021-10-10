@@ -68,95 +68,22 @@
     <!-- Bootstrap -->
     <script src="../bootstrap/js/bootstrap.min.js"></script>
     <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-
+ <!--nav Stylesheet-->
+ <link rel="stylesheet" href="../css/nav_styles.css">
     <!-- Font awesome http://fortawesome.github.io/Font-Awesome/-->
     <link href="../fontawesome/css/font-awesome.css" rel="stylesheet">
 
-    <style type="text/css">
-
-      /*
-      Max width before this PARTICULAR table gets nasty
-      This query will take effect for any screen smaller than 760px
-      and also iPads specifically.
-      */
-      @media
-      only screen and (max-width: 760px),
-      (min-device-width: 768px) and (max-device-width: 1024px)  {
-
-        /* Force table to not be like tables anymore */
-        table, thead, tbody, th, td, tr {
-          display: block;
-        }
-
-        /* Hide table headers (but not display: none;, for accessibility) */
-        thead tr {
-          position: absolute;
-          top: -9999px;
-          left: -9999px;
-        }
-
-        tr { border: 1px solid #ccc; }
-
-        td {
-          /* Behave  like a "row" */
-          border: none;
-          border-bottom: 1px solid #eee;
-          position: relative;
-          padding-left: 50%;
-        }
-
-        td:before {
-          /* Now like a table header */
-          position: absolute;
-          /* Top/left values mimic padding */
-          top: 6px;
-          left: 6px;
-          width: 45%;
-          padding-right: 10px;
-          white-space: nowrap;
-        }
-
-        /*
-        Label the data
-        */
-        td:nth-of-type(1):before { content: "Edit"; }
-        td:nth-of-type(2):before { content: "Number"; }
-        td:nth-of-type(3):before { content: "Vorname"; }
-        td:nth-of-type(4):before { content: "Nachname"; }
-        td:nth-of-type(5):before { content: "Wohnort"; }
-        td:nth-of-type(6):before { content: "Studiengang"; }
-        td:nth-of-type(7):before { content: "Semester"; }
-        td:nth-of-type(8):before { content: "Delete"; }
-      }
-
-      /* Smartphones (portrait and landscape) ----------- */
-      @media only screen
-      and (min-device-width : 320px)
-      and (max-device-width : 480px) {
-        body {
-          padding: 0;
-          margin: 0;
-          width: 320px; }
-        }
-
-      /* iPads (portrait and landscape) ----------- */
-      @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
-        body {
-          width: 495px;
-        }
-      }
-
-      .container 
-      {
-          background: #ffffff;
-      }
-	  </style>
+    
+	
 
   </head>
   
   <body>
 
 	<!--<div class="container-fluid">-->
+  <?php include __DIR__.'../fregment//navbar.php'  ?>
+    <!--Ende Top navigation-->
+    <!--<div class="container-fluid">-->
     <div class="container">
         <div class="page-header">
             <div class="row">
@@ -164,38 +91,15 @@
                   
                 </div>
                 <div class="col col-sm-10">
-                    <h1>Poster Store </h1><h4>verwalte deine Merkliste</h4>
+                    <h1>Poster Store </h1><h4> Warenkorb bearbeiten</h4>
                 </div>
             </div>
         </div>
-            
-
-		 <!-- Static navbar -->
-      <nav class="navbar navbar-default">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="portalview.php">Poster Store </a>
-          </div>
-          <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-              <li><a href="friends_overview.php">warenkorb</a></li>
-              <li><a href="../friends_add.html">logout</a></li>
-             
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div><!--/.container-fluid -->
-      </nav>
 
     	<div class="row">
 
         <br>
-        <center><h2>Warenkorb Beirbeiten </h2></center>
+        <center><h2></h2></center>
         <br>
           <table class="table">
             <thead>
@@ -239,7 +143,7 @@
 <br>
 <br>
  <!-- Footer line-->
- <?php  include_once 'setUp/footer.php' ?>
+ <?php  include_once 'fregment/footer.php' ?>
 
 </html>
 

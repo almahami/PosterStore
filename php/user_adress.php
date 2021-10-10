@@ -19,8 +19,6 @@
     <meta name="creator" content="Basel Kahrof">
 
     <meta name="description" content="HOME Page">
- 
-
     <!-- jquery -->
     <script src="../javaScript/jquery-2.1.4.min.js"></script>
 
@@ -72,6 +70,10 @@
             swal("Error!", "Bitte geben Sie  das Land ein !", "error");
                 return false;
             }
+          if(!this.delivery_address.datenschutz.checked){
+              swal("Error", "Bitte Aktzaptitieren den DatenSchutz", "error")
+              return false;
+            }  
           }
 
           function order_confirmation(){
@@ -85,7 +87,7 @@
 
 <body>
       <!--Ende Top navigation-->
-      <?php   include "setUp/navbar.php" ?>
+      <?php   include "fregment/navbar.php" ?>
     <!--Ende Top navigation-->
     <br>
     <br>
@@ -165,12 +167,22 @@
             
           </div>
         </div>
-        
+        <div class="form-group">
+        <label class="col-md-4 control-label" for="datenschutz"></label>
+        <div class="col-md-4">
+        <div class="checkbox">
+          <label for="datenschutz-0">
+            <input type="checkbox" name="datenschutz" id="datenschutz-0" value="">
+            ich Aktzaptiere den Datenschutz
+          </label>
+         </div>
+         </div>
+         </div>
         <!-- Button (Double) -->
         <div class="form-group">
           <label class="col-md-4 control-label" for="cancel"></label>
           <div class="col-md-8">
-            <button id="cancel" name="cancel" class="btn btn-success">Abbrechen</button>
+            <!--<button id="cancel" name="cancel" class="btn btn-success">Abbrechen</button>-->
             <button  id="order" name="order" class="btn btn-success" onclick="order_confirmation()" >Bestellen</button> 
           </div>
         </div>
@@ -182,7 +194,7 @@
     <br>
     <hr>
       <!--Footer --->
-    <?php include_once"setUp/footer.php"  ?>
+    <?php include_once"fregment/footer.php"  ?>
 
 </body>
 </html>

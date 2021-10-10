@@ -1,8 +1,22 @@
 <?php 
     session_start();
-    if($_SESSION['login'] !=111){
-        header("Location: ../index.php");
-    }
+    if($_SESSION['login'] !=111){ header("Location: ../index.php");}
+    
+    $userIdFK = $_SESSION['uid'];
+    //Sichere, dass user keine leeren Bestellung fortfährt
+    try{
+        $fpConnection =mysqli_connect("127.0.0.1", "root", "", "poster_store");         // DB connection 
+        if(! $fpConnection){    	                                                    // Error  
+            echo "Fehler: Verbindung kann nich gestellt werden"- PHP_EQL;
+            echo "Debug Fehlernummer " . mysqli_connect_errno(). PHP_EQL;
+            echo "Debugb Fehlernummer ". mysqli_connect.eroor(). PHP_EQL;
+            exit;    
+        }
+
+        $isCartEmpty="SELECT * FROM cart WHERE userId='$userIdFK'";
+
+        $result= $fpConnection->query($isCartEmpty);
+        if($result->num_rows >0){
 ?>
 <!DOCTYPE html>
 <html lang="de">
@@ -30,7 +44,7 @@
     <link rel="stylesheet" href="../css/nav_styles.css">
     <!-- Shop , wishlist css -->
     <link rel="stylsheet" , href="../css/shop_cart_view.css">
-    <link rel="stylesheet" href="../css/dark_modus.css">
+   
     <!--sweetalert-->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
  
@@ -38,15 +52,25 @@
 
 <body>
     <!--Top navigation-->
-    <?php include __DIR__.'../setUp//navbar.php'  ?>
+    <?php include __DIR__.'../fregment//navbar.php'  ?>
     <!--Ende Top navigation-->
     <!--<div class="container-fluid">-->
     <div class="container">
-        <!-- Static navbar -->
+        <div class="page-header">
+            <div class="row">
+                <div class="col col-sm-2">
+                  
+                </div>
+                <div class="col col-sm-10">
+                    <h1>Poster Store </h1><h4>verwalte dein Warenkorb</h4>
+                </div>
+            </div>
+        </div>
+            
         <div class="row">
             <br>
             <center>
-                <h2>Warenkorb </h2>
+                
             </center>
             <br>
             <table class="table">
@@ -214,7 +238,22 @@
     <br>
     <hr>
     <!-- Footer -->
-    <?php include_once "setUp/footer.php" ?>
+    <?php include_once "fregment/footer.php" ?>
     <!-- Footer -->
     </div>
 </body>
+</html>
+<!-- Ende der try Block, dient dazu, dass user keine Leeren Bestellung gibt-->
+<?php
+    }
+   else {
+      
+        $_SESSION["emptyCart"]="Den Warenkorb ist Leer!";
+        header("Location: home.php");
+    }
+//try close
+    }
+    catch(Exception $e){
+        echo "Fehler bi db verbindung". $e;
+    }
+?>

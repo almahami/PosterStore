@@ -20,7 +20,7 @@
 
             $order_complete = FALSE;
             // Bestellung in den DB Speichern
-           $bestellung_time =  date('Y-m-d'); 
+           $bestellung_time =   date("F j, Y, g:i a");
             $insert_into_order= "INSERT INTO `order_`(`OrderID`, `userIdFK`, `value`, `Bestellung_time`) VALUES ('', '$userid', '$total','$bestellung_time')";
             echo $insert_into_order;
             $result_insert_into_order = $fpConnection->query($insert_into_order);

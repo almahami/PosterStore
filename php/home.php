@@ -1,10 +1,6 @@
 <?php
     session_start();
     error_reporting();
-
-   
-
-  
     try{
      $fpConnection =mysqli_connect("127.0.0.1", "root", "", "poster_store");         // DB connection 
      if(! $fpConnection){    	                                                    // Error  
@@ -17,8 +13,6 @@
      $sql="SELECT id,name,description,image,price,size,item FROM products WHERE item>0 ORDER BY id";
      //echo $sql;
      $result= $fpConnection->query($sql);
-
-
  ?>
 
 <!DOCTYPE html>
@@ -59,7 +53,7 @@
 
 <body>
     <!--Top navigation-->
-    <?php include __DIR__.'../setUp/navbar.php'  ?>
+    <?php include __DIR__.'../fregment/navbar.php'  ?>
     <!--Ende Top navigation-->
 
     <!--Carousel-->
@@ -115,35 +109,70 @@
      <!--Poster list-->
      <section class="container">
         <section class="row justify-content-md-center">
-            <?php if($result ){
-                while($row =$result->fetch_array()) :?>
-                    <div class="col-md-4">
-                        <div class="box">
-                            <div class="Product_container">
-                                <div class="Product_cover">
+            <!--Fehler beim zugreifen, auf leeren Warenkorb, Merkliste, Bestellungen--->
+            <?php
+                if(isset($_SESSION["emptyCart"])){
+            ?>
+            <div class="alert alert-danger text-center" style="padding=156px;">
+                <?php
+            
+                echo $_SESSION["emptyCart"];
+                }
+                $_SESSION["emptyCart"]=NULL;
+                ?>
+            </div>
+            <?php
+                if(isset($_SESSION["emptyMerklist"])){
+            ?>
+            <div class="alert alert-danger text-center" style="padding=156px;">
+                <?php
+            
+                echo $_SESSION["emptyMerklist"];
+                }
+                $_SESSION["emptyMerklist"]=NULL;
+                ?>
+            </div>
+            <?php
+                if(isset($_SESSION["emptyOrder"])){
+            ?>
+            <div class="alert alert-danger text-center" style="padding=156px;">
+                <?php
+            
+                echo $_SESSION["emptyOrder"];
+                }
+                $_SESSION["emptyOrder"]=NULL;
+                ?>
+            </div>                     
+            <?php 
+                if($result ){
+                    while($row =$result->fetch_array()) :?>
+                        <div class="col-md-4">
+                            <div class="box">
+                                <div class="Product_container">
+                                    <div class="Product_cover">
+                                        <img src="../images/web/<?php echo $row['image']; ?>" alt="">
+                                    </div>
+                                    <div>
                                     <img src="../images/web/<?php echo $row['image']; ?>" alt="">
-                                </div>
-                                <div>
-                                <img src="../images/web/<?php echo $row['image']; ?>" alt="">
+                                    </div>
+
                                 </div>
 
-                            </div>
-
-                            <form action="../db/add_item.php" method="post" align="center">
-                                <h4> <?php echo $row['name']; ?></h4>
-                                <p> <?php echo $row['price']; ?> &euro;</p>
-                                <!-- aufgrung zeitdruck kann nicht realisiert werden 
-                                <label class="col-md-2  control-label" for="size"> Größe:</label>
-                                <div class="col-md-1">
-                                    <select id="size" name="size" class="form-control" style="width: 80px;">
-                                        <option value="Size">Size</option>
-                                        <option value="21 x 30 cm"><?php echo $row['size'] ?></option>
-                                        <option value="30 x 40 cm">30 x 40 cm</option>
-                                        <option value="50 x 70 cm">50 x 70 cm</option>  
-                                    </select>
-                                </div>
-                                -->
-                                <div> 
+                                <form action="../db/add_item.php" method="post" align="center">
+                                    <h4> <?php echo $row['name']; ?></h4>
+                                    <p> <?php echo $row['price']; ?> &euro;</p>
+                                    <!-- aufgrung zeitdruck kann nicht realisiert werden 
+                                    <label class="col-md-2  control-label" for="size"> Größe:</label>
+                                    <div class="col-md-1">
+                                        <select id="size" name="size" class="form-control" style="width: 80px;">
+                                            <option value="Size">Size</option>
+                                            <option value="21 x 30 cm"><?php echo $row['size'] ?></option>
+                                            <option value="30 x 40 cm">30 x 40 cm</option>
+                                            <option value="50 x 70 cm">50 x 70 cm</option>  
+                                        </select>
+                                    </div>
+                                    -->
+                        <div> 
                                     <label for="menge"> menge:</label>
                                     <input type="number" min="1" max="<?php echo $row['item']; ?>" value="1" name='amount' id='amount'> <br> <br>
                                     <!--Hidden Button-->
@@ -174,7 +203,7 @@
     <!--Ende of Poster list-->
     <br>
     <!--footer-->
-        <?php include_once 'setUp/footer.php'; ?>
+        <?php include_once 'fregment/footer.php'; ?>
     </div>
 </body>
 </html>

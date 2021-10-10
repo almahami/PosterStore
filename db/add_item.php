@@ -1,8 +1,12 @@
 <?php
     session_start();
     error_reporting();
+    if($_SESSION['login'] !=111){
+        header("Location: ../index.php");
+    }
 
-    var_dump($_POST);
+    
+    //var_dump($_POST);
     $userId= $_SESSION['uid'];
     $productId= $_POST['hidden_id'];
     $name=$_POST['hidden_name'];

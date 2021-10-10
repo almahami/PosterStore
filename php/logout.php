@@ -1,7 +1,10 @@
 
 <?php
    session_start();
-   
+   if ($_SESSION['login'] !==111){
+        //Sofort weiter leitung
+        header('Location: ../index.php');
+    }
     try{
         $fpConnection =mysqli_connect("127.0.0.1", "root", "", "poster_store");         // DB connection 
         if(! $fpConnection){    	                                                    // Error  
@@ -10,8 +13,11 @@
             echo "Debugb Fehlernummer ". mysqli_connect.eroor(). PHP_EQL;
             exit;    
         }
-
-        $userid = $_SESSION['uid'];
+        $userid="";
+        if(isset( $_SESSION['uid'])){
+            $userid = $_SESSION['uid'];
+        }
+        
         // online status ändern
         $sql_online_column_updaten =  "UPDATE user SET online=false WHERE id= '$userid'";
         $result_online_column_updaten =  $fpConnection->query($sql_online_column_updaten);    
@@ -87,14 +93,14 @@
         <!--Conntent-->
         <section > 
         <p style="text-align: center;"> Vielen Dank für Ihre Besuch</p>
-        <p> wir Höffen  das Ihnen bald wiedersehen</p>
+        <p> wir Höffen,  dasa wir Ihnen bald wiedersehen</p>
         </section>
         <!--ende Content-->
 
     
         <hr>
       <!-- Footer line-->
-        <?php  include 'setUp/footer.php' ?>
+        <?php  include 'fregment/footer.php' ?>
     </body>
 
 

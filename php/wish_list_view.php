@@ -1,12 +1,24 @@
-<!-- ziel: aller Freunde dies nutzer anzeigen-->
 <?php
-  //1
   session_start();
-  //2 damit Nicht eingelogte  User zugriff auf die seite haben
-  if ($_SESSION['login'] !==111){
-      //Sofort weiter leitung
-      header('Location: ../login.html');
-  }
+  if($_SESSION['login'] !=111) header("Location: ../index.php");
+
+    // verhindern, dass user auf leeren Merklsite landet
+    $userIdFK = $_SESSION['uid'];
+    //Sichere, dass user keine leeren Bestellung fortfährt
+    try{
+        $fpConnection =mysqli_connect("127.0.0.1", "root", "", "poster_store");         // DB connection 
+        if(! $fpConnection){    	                                                    // Error  
+            echo "Fehler: Verbindung kann nich gestellt werden"- PHP_EQL;
+            echo "Debug Fehlernummer " . mysqli_connect_errno(). PHP_EQL;
+            echo "Debugb Fehlernummer ". mysqli_connect.eroor(). PHP_EQL;
+            exit;    
+        }
+
+        $isMerlistEmpty="SELECT * FROM wishlist WHERE userId='$userIdFK'";
+
+        $result= $fpConnection->query($isMerlistEmpty);
+        if($result->num_rows >0){
+
 ?>
 
 
@@ -39,7 +51,7 @@
   </head>
   
   <body>
-  <?php  include '../php/setUp/navbar.php' ?>
+  <?php  include '../php/fregment/navbar.php' ?>
 	<!--<div class="container-fluid">-->
     <div class="container">
         <div class="page-header">
@@ -59,7 +71,17 @@
     	<div class="row">
 
         <br>
-        <center><h2>Merkliste </h2></center>
+        <center><h2> </h2></center>
+        <?php 
+                    if(isset( $_SESSION['ERRORaricleExistInCard'])){
+                        ?>
+                             <div class="alert alert-danger text-center">
+                                <?php echo $_SESSION['ERRORaricleExistInCard']; ?>
+                            </div>
+                            <?php
+                    }
+                    $_SESSION['ERRORaricleExistInCard']=NULL;
+                    ?>
         <br>
           <table class="table">
             <thead>
@@ -76,7 +98,10 @@
             <tbody>
               <!-- 3 Verbindung aufbauen--->
               <?php 
-                                $userId= $_SESSION['uid'];
+                                $userId="";
+                                if(isset($_SESSION['uid'])){
+                                  $userId=$_SESSION['uid'];
+                                }
                                 $total=0;
                                 try{
                                 
@@ -129,8 +154,21 @@
 
     </div>
 
-    
-  </body>
-
-  <?php include 'setUp/footer.php';  ?>
+    <?php include 'fregment/footer.php';  ?>
+  </body>  
 </html>
+
+<!-- Ende der try Block, dient dazu, dass user keine Leeren Bestellung gibt-->
+<?php
+    }
+   else {
+      
+        $_SESSION["emptyMerklist"]="Ihre Wünschliste ist noch Leer!";
+        header("Location: home.php");
+    }
+//try close
+    }
+    catch(Exception $e){
+        echo "Fehler bi db verbindung". $e;
+    }
+?>

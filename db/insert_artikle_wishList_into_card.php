@@ -8,9 +8,13 @@
         header("Location: ../index.php");
     } 
 
-    var_dump($_GET);
-
-    $userId=$_SESSION['uid'];
+    //var_dump($_GET);
+   
+    $userId="";
+    if(isset($_SESSION['uid'])){
+        $userId=$_SESSION['uid'];        
+    }
+    
     $productID=0;
 
     if(isset($_GET['pid'])){
@@ -28,7 +32,7 @@
                 exit;    
             }
             $insert_into_cart="INSERT INTO `cart`(`id`, `userId`, `productId`, `amount`) VALUES ('','$userId','$productID','1');";
-            echo $insert_into_cart;
+            //echo $insert_into_cart;
             $result_insert_into_cart=$fpConnection->query($insert_into_cart);
             
             if($result_insert_into_cart){
@@ -39,12 +43,17 @@
                     header("Location: ../php/home.php");
                 }
                 else{
+                   
                     echo "Fehler beim Löschen";
+                   
+
                 }
                 
            
             }else{
-                echo "Fehler beim Einfügen in den Warenkorb";
+                $_SESSION['ERRORaricleExistInCard'] ='Die Artike ist bereit in den Warenkorb eingefügt';
+                //echo "Fehler beim Einfügen in den Warenkorb";
+                header("Location: ../php/wish_list_view.php");
             }
             mysqli_close($fpConnection);
         }catch(Exception $e){

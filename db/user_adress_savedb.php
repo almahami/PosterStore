@@ -9,6 +9,7 @@ if($_SESSION['login'] !=111){
 
    $total=$_SESSION['total'];
    $userid = $_SESSION['uid'];
+   $delivery_cost="";
    if(isset($_POST['checkout'])){
     if(isset($_POST['Delivery_radios'])){
         $delivery_cost=$_POST['Delivery_radios'];
@@ -101,7 +102,7 @@ if($_SESSION['login'] !=111){
             if($save_adresse){
 
                 // Bestellung in den DB Speichern 
-                $bestellung_time =  date('Y-m-d');
+                $bestellung_time =  date("F j, Y, g:i a");
                 $insert_into_order= "INSERT INTO `order_`(`OrderID`, `userIdFK`, `value`, `Bestellung_time`) VALUES ('', '$userid', '$update_total', '$bestellung_time')";
                 echo $insert_into_order;
                 $result_insert_into_order = $fpConnection->query($insert_into_order);
@@ -111,7 +112,6 @@ if($_SESSION['login'] !=111){
                     $orderIDFK_auslesen = "SElECT OrderID FROM order_ WHERE userIdFK ='$userid' ";
                     $orderIDFK_auslesen_result = $fpConnection->query($orderIDFK_auslesen);
                     if($orderIDFK_auslesen_result){
-<<<<<<< HEAD
                     while($row = $orderIDFK_auslesen_result->fetch_array()){
                         $orderIDFK=$row['OrderID'];
                         //echo $orderIDFK;
@@ -119,14 +119,6 @@ if($_SESSION['login'] !=111){
                  
                     $order_products = "SELECT `userId`, `productId`, `amount`,item FROM cart,products WHERE userId ='$userid' AND productId=products.id";
                    // echo $order_products .  '<br>' ;
-=======
-                        while($row = $orderIDFK_auslesen_result->fetch_array()){
-                            $orderIDFK=$row['OrderID'];
-                            //echo $orderIDFK;
-                        }
-                    $order_products = "SELECT `userId`, `productId`, `amount`,item FROM cart,products WHERE userId ='$userid' AND productId=products.id";
-                    //echo $order_products .  '<br>' ;
->>>>>>> cb865ff (My message)
                     $result_order_products = $fpConnection->query($order_products);
                     $productIDFK=0;
                     if ($result_order_products->num_rows > 0){
@@ -178,7 +170,7 @@ if($_SESSION['login'] !=111){
                         $mail->isHTML(true);                               //Set email format to HTML
                         $mail->Subject = 'Bestellung';                    // betreff
                         $mail->Body.=$mail_content;
-                        $mail->Body.=" <table> <tr> <th>name </th> <th>price </th> <th>menge </th> <th>summe </th> </tr>";
+                        $mail->Body.=" <table> <tr> <th>name </th> <th>price </th> <th>menge </th> <th>prise*menge </th>  </tr>";
                         // Inhalt  des bestätigungsmail geniereernen
                         $sql ="SELECT cart.id, name,amount,price FROM cart,products WHERE userId = '$userid' AND cart.productId=products.id";
                         //echo $sql;
@@ -188,6 +180,7 @@ if($_SESSION['login'] !=111){
                             $mail->Body .='<tr>'. '<td>' . $row['name'] .'</td>' . '<td>' . $row['price'] .   '  &euro;'.'</td>'.  '<td>' . $row['amount'] .'</td>'. '<td>' .$row['amount'] * $row['price'] .  '  &euro;'.'</td>'. '</tr>' ;   
                         
                         }
+                        $mail->Body.="<tr><td> <b> Versandkosten</b></td> <td> </td> <td>  </td>  <td> <b> $delivery_cost &euro; <b> </td></tr>";
                         $mail->Body.="<tr><td> <b> Summe</b></td> <td> </td> <td>  </td>  <td> <b> $update_total &euro; <b> </td></tr>";
                         $mail->Body.="</table>";
 

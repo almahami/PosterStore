@@ -2,9 +2,10 @@
     session_start();
     error_reporting();
 
-    if( $_SESSION['registiert'] !=111){
-        header("Location: singUp_formular.php");
-    }
+   // if( $_SESSION['registiert'] !=111){
+   //     header("Location: singUp_formular.php");
+   // }
+    //var_dump($_POST);
 ?>
 <!DOCTYPE html>
 <html>
@@ -63,12 +64,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-3">
                 <li class="nav-item" style=" margin-left: 500px;">
-                    <h2 style="text-align: center;"> Wilkomen auf Unsere Homepage</h2>
-                </li>
-            </ul>
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <label type="button" onclick="dark_modus()"> <i class="fa fa-adjust fa-2x"></i></lable>
+                    <h2 style="text-align: center;"> </h2>
                 </li>
             </ul>
         </div>
@@ -102,32 +98,35 @@
                              
                             }
                         }
-                    elseif( isset($_POST['resent_code'])){                      //code wiedersenden
+                    
+                        elseif( isset($_POST['resent_code'])){                      //code wiedersenden
                         require_once '../db/sent_verfication_code.php';
                         $_SESSION['mail_send']= "Der Bestätigungscode wurde nocheinmal versendet";
                         $sql ="UPDATE user SET verification_code='$code' WHERE email='$email'";     //aktulisiere code in db 
                         //echo $sql;
                         $result=$fpConnection->query($sql);
                     }
-                  
-                    if($email != $_SESSION['email'] && $verf_code == $_SESSION['verfication_code']){
+                    
+                    if($email != $_SESSION['email'] && $verf_code ==  $_SESSION['verfication_code']){
                             $errors["email_errors"]="E-mail stimmt nicht";
                             //echo "E-mail stimmt nicht";
                     }
-                    if($email == $_SESSION['email'] && $verf_code != $_SESSION['verfication_code'] ){
+                  
+                    if($email == $_SESSION['email'] && $verf_code != $_SESSION['verfication_code']){
                         $errors["code_errors"]="Bestätigungscode stimmt nicht";
                         //echo "Bestätigungscode stimmt nicht";
                     }
+                    
                     if (($email != $_SESSION['email'] && $verf_code != $_SESSION['verfication_code'])){
                         $errors['verfication_error']='Die E-Mail und  Bestätigungscode stimmt nicht überein';
                         //echo ' Die E-Mail und  Bestätigungscode stimmt nicht überein';
                     }
+                   
                     // db schliessen
                     mysqli_close($fpConnection);
 
                 }
                 catch (Exeption $e){
-               
                     echo "Fehler bei der Verbindung ". $e;
                 }
             }
@@ -182,12 +181,13 @@
                             </div>
                             <?php
                     }
+                 
                     ?>
                             <label for="username" class="label_dark">E-Mail: </label>
                             <div style="margin-bottom: 25px" class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                                 <input id="login-username" type="text" class="form-control" name="username"
-                                    value="<?php echo $_SESSION['email']; ?>" placeholder=" E-Mail">
+                                    value="<?php echo $_SESSION['email']; ?>" placeholder=" E-Mail" readOnly="">
                             </div>
                             <label for="verification" class="label_dark">Bestätigungscode: </label>
                             <div style="margin-bottom: 25px" class="input-group">
@@ -222,7 +222,7 @@
         <!--footer-->
         <footer>
             <!-- Footer Links -->
-            <?php include_once "setUp/footer.php" ?>
+            <?php include_once "fregment/footer.php" ?>
 </body>
 
 </html>

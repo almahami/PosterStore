@@ -73,6 +73,8 @@
                 alert("passwörter stimmen nicht überein");
                 return false;
             }
+            sha512Pwd();
+            sha512CPwd();
         }
     </script>
 
@@ -82,14 +84,13 @@
 
     <!--Top -->
     <nav class="navbar navbar-light" style="background-color: #e3f2fd; margin-bottom: 0%;">
-        <a class="navbar-brand" href="../index.php"> Poster Store</a>
+        <a class="navbar-brand" href="../index.php" style="margin-left: 300px;"> Poster Store</a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-3">
-                <li class="nav-item" style="margin-left: 300px;">
-
-                </li>
+            <ul class="navbar-nav mr-6">
+                
             </ul>
         </div>
+            
     </nav>
     <!--Ende Top-->
     <div class="container">
@@ -142,7 +143,7 @@
                                 }
                             ?>
                                     <lable class="label_dark"> Firstname: </lable>
-                                    <div style="margin-bottom: 25px" class="input-group">
+                                    <div style="margin-bottom: 25px;" class="input-group">
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                                         <input id="firstname" type="text" class="form-control" name="firstname" value=""
                                             placeholder="Firstname">
@@ -175,7 +176,7 @@
                                     </div>
                                     <div style="margin-top:10px" class="form-group">
                                         <div class="col-sm-12 controls">
-                                            <button type="submit" onclick="sha512Pwd(); sha512CPwd();" class="btn btn-primary" name="singUp">singUp</button>
+                                            <button type="submit" class="btn btn-primary" name="singUp">singUp</button>
                                         </div>
                                     </div>
 
@@ -192,7 +193,7 @@
             <br>
             <hr>
             <!--footer-->
-            <?php include_once "setUp/footer.php" ?>
+            <?php include_once "fregment/footer.php" ?>
 
             <script>
                   function sha512Pwd(obj) {
@@ -208,7 +209,7 @@
                     hashObj.update(pwdObj.value);
                     var hash = hashObj.getHash("HEX");
                     pwdObj.value = hash;
-                    return hash;
+                    //return hash;
                 }
 
             </script>

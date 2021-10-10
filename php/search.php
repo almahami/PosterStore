@@ -2,9 +2,11 @@
     session_start();
     error_reporting();
 
+    /*
     if($_SESSION['login'] !=111){
         header("Location: ../index.php");
     }
+    */
 
     $search_term=$_POST['search'];
   
@@ -73,7 +75,7 @@
 
 <body>
     <!--Top navigation-->
-    <?php include __DIR__.'../setUp/navbar.php'  ?>
+    <?php include __DIR__.'../fregment/navbar.php'  ?>
     <!--Ende Top navigation-->
 
     <!--Carousel-->
@@ -181,7 +183,7 @@
             }else{?>
                 <br>
                 <h2 align="center">  <span>:) </span></h2>                
-                <h3 align="center"> Leider haben wir die suchbegrif <i style="color:red;"> <?php echo $search_term ?> </i> keine Treffer gefunden</h3>
+                <h3 align="center"> Leider haben wir  für die suchbegrif <i style="color:red;"> <?php echo $search_term ?> </i> keine Treffer gefunden</h3>
                 <i class="bi bi-emoji-laughing-fill"></i>
            <?php 
         }
@@ -194,7 +196,7 @@
     <!--Ende of Poster list-->
     <br>
     <!--footer-->
-        <?php include_once 'setUp/footer.php'; ?>
+        <?php include_once 'fregment/footer.php'; ?>
     </div>
 </body>
 </html>

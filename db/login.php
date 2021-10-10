@@ -2,7 +2,7 @@
     session_start();                                // session Satrt;
     error_reporting();
     $errors= array();
-    
+   
     //var_dump($_POST);
     
     // wenn user login anklickt                        
@@ -25,7 +25,7 @@
             }
 
             //$password_hash=hash("sha512",$password);  
-            $sql ="SELECT * FROM user WHERE email='$email' AND status =true ;";        // sql query
+            $sql ="SELECT * FROM user WHERE email='$email' AND status =true";        // sql query
             //echo $sql;
             $result =$fpConnection->query($sql);                                // sql query ausführen
 
@@ -35,19 +35,25 @@
                 $query=$fpConnection->query($sql);
                 if($query->num_rows >0){
                     $LoginSuccess =true;                                            // login erfolgreich
-                
-                $online_update ="UPDATE user SET online=true, screen_size ='$screen_size' WHERE email='$email'";                                // online spalte aktulisieren
-                $erg = $fpConnection->query($online_update);
-                while($row = $result->fetch_array()){
-                    $_SESSION['uid']=$row['id'];
-                    $_SESSION['firstname']=$row['firstname'];
-                    $_SESSION['lastname']=$row['lastname'];
-                    $_SESSION['email']=$row['email'];
-                    $_SESSION['login']=111;
-                    $_SESSION['time']=time();
-                }  
-                //echo "Login erfolgreich" ;
-               header("Location: php/home.php");            // weiterleitung zu dem home page
+                    $lastTimeChange=  date("F j, Y, g:i a");  
+
+                    $online_update ="UPDATE user SET online=true, screen_size ='$screen_size' WHERE email='$email'";                                // online spalte aktulisieren
+                    $erg = $fpConnection->query($online_update);
+                    while($row = $result->fetch_array()){
+                        $_SESSION['uid']=$row['id'];
+                        $_SESSION['firstname']=$row['firstname'];
+                        $_SESSION['lastname']=$row['lastname'];
+                        $_SESSION['email']=$row['email'];
+                        $_SESSION['login']=111;
+                        $_SESSION['lastTimeChange']=$row['lastTimeChange'];
+                    }  
+                    //echo "Login erfolgreich" ;
+                    if($online_update){
+                        $updateLastTimeChange="UPDATE user SET lastTimeChange='$lastTimeChange' WHERE email='$email';";
+                        echo $updateLastTimeChange;
+                        $resultOfUpdateLasttimeChange= $fpConnection->query($updateLastTimeChange);
+                    }
+                     header("Location: php/home.php");            // weiterleitung zu dem home page
             }else{
                 $errors['email_password_error']= "email  oder passwort stimmen nicht "; 
             }
